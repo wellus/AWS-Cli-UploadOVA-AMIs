@@ -1,0 +1,17 @@
+#Check the OVA folder on S3
+aws s3 ls s3://javelin-ovas
+
+#Copy the OVA to the Javelin OVA folder in S3
+aws s3 cp e:\TEMP\LONAG-TST67.ova s3://javelin-ovas
+
+#Create the following file, file://containers.json:
+[{
+    "Description": "LONAG-TST67.ova",
+    "Format": "ova",
+    "UserBucket": {
+        "S3Bucket": "javelin-ovas",
+        "S3Key": "LONAG-TST67.ova"
+    }
+}]
+#Convert the uploaded OVA to an AMI
+aws ec2 import-image --disk-containers file://test1.json
